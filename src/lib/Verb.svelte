@@ -3,6 +3,10 @@
 
   export let verb;
 
+  const startsWithAVowel = (word) => {
+    return word.match("^[aeiou].*");
+  };
+
   $: infinitive = verb.infinitive;
   $: wordReferenceLink = `https://www.wordreference.com/fren/${infinitive}#articleHead`;
 
@@ -33,6 +37,11 @@
   $: if (firstPersonSingularCorrect) {
     secondPersonSingularInput.focus();
   }
+  $: firstPersonSingularPronoun = startsWithAVowel(
+    answers.first_person_singular
+  )
+    ? "J'"
+    : "Je";
 
   let secondPersonSingularInput;
   let secondPersonSingular = "";
@@ -86,7 +95,7 @@
   </div>
   <div class="flex flex-col text-3xl">
     <Conjugation
-      pronoun="Je"
+      pronoun={firstPersonSingularPronoun}
       bind:value={firstPersonSingular}
       bind:inputRef={firstPersonSingularInput}
       isCorrect={firstPersonSingularCorrect}
