@@ -11,12 +11,17 @@
     firstPersonPlural = "";
     secondPersonPlural = "";
     thirdPersonPlural = "";
+    // finally, focus the first element
+    if (!!firstPersonSingularInput) {
+      firstPersonSingularInput.focus();
+    }
   };
   $: {
     // reset the answers if the infinitive has changed
     reset(verb.infinitive);
   }
 
+  let firstPersonSingularInput;
   let firstPersonSingular = "";
   $: firstPersonSingularCorrect =
     firstPersonSingular === verb.indicative.present.first_person_singular;
@@ -71,6 +76,7 @@
     pronoun="Je"
     bind:value={firstPersonSingular}
     isCorrect={firstPersonSingularCorrect}
+    bind:inputRef={firstPersonSingularInput}
   />
   <Conjugation
     pronoun="Tu"
