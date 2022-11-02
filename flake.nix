@@ -18,6 +18,9 @@
             pkgs.nodePackages.npm
             pkgs.python3
           ];
+          shellHook = ''
+            export PATH=$PATH:./node_modules/.bin/
+          '';
         };
       });
 }
