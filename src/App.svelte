@@ -1,7 +1,7 @@
 <script>
   import verbs from "./data/verbs.json";
   import Verb from "./lib/Verb.svelte";
-  let verbIndex = 1;
+  let verbIndex = Math.floor(Math.random() * verbs.length);
   const randomise = () => {
     verbIndex = Math.floor(Math.random() * verbs.length);
   };
