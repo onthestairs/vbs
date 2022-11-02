@@ -8,7 +8,7 @@
   };
 
   $: infinitive = verb.infinitive;
-  $: wordReferenceLink = `https://www.wordreference.com/fren/${infinitive}#articleHead`;
+  $: wordReferenceLink = `https://www.wordreference.com/fren/${infinitive}#articleWRD`;
 
   $: answers = verb.indicative.present;
 
