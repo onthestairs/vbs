@@ -5,9 +5,14 @@ verbs = []
 
 with open("./french-verb-conjugation.csv") as f:
     reader = csv.DictReader(f)
+    seen_infinitives = set()
     for row in reader:
+        infinitive = row["infinitive"]
+        if infinitive in seen_infinitives:
+            print(f"Skipping {infinitive}, Already seen")
+        seen_infinitives.add(infinitive)
         verb = {
-            "infinitive": row["infinitive"],
+            "infinitive": infinitive,
             "indicative": {
                 "present": {
                     "first_person_singular": row[
