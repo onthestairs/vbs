@@ -10,6 +10,7 @@ with open("./french-verb-conjugation.csv") as f:
         infinitive = row["infinitive"]
         if infinitive in seen_infinitives:
             print(f"Skipping {infinitive}, Already seen")
+            continue
         seen_infinitives.add(infinitive)
         verb = {
             "infinitive": infinitive,
