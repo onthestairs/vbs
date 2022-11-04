@@ -2,17 +2,20 @@
   import Conjugation from "./Conjugation.svelte";
 
   export let verb;
+  export let verbForm;
+
+  $: [mood, tense] = verbForm;
+  $: console.log(mood, tense);
 
   const startsWithAVowel = (word) => {
-    return word.match("^[aeiou].*");
+    return word.match("^[aeioué].*");
   };
 
   $: infinitive = verb.infinitive;
-  $: wordReferenceLink = `https://www.wordreference.com/fren/${infinitive}#articleWRD`;
 
-  $: answers = verb.indicative.present;
+  $: answers = verb[mood][tense];
 
-  const reset = (verbInfinitive) => {
+  const reset = (verbInfinitive, mood, tense) => {
     console.log("infinitive is", verbInfinitive);
     firstPersonSingular = "";
     secondPersonSingular = "";
@@ -27,7 +30,7 @@
   };
   $: {
     // reset the answers if the infinitive has changed
-    reset(verb.infinitive);
+    reset(infinitive, mood, tense);
   }
 
   let firstPersonSingularInput;
@@ -81,17 +84,20 @@
     thirdPersonPlural === answers.third_person_plural;
 </script>
 
-<h2 class="mb-16 text-center text-8xl font-bold italic underline">
-  {verb.infinitive}
-</h2>
-
 <div class="grid grid-cols-2 gap-4">
   <div>
-    <iframe
-      class="h-full w-128"
-      src={wordReferenceLink}
-      title="Word reference"
-    />
+    <h4 class="text-center text-4xl font-bold italic ">
+      Mood: {mood}<br />
+      Tense: {tense}
+    </h4>
+    <h2 class="mb-16 text-center text-8xl font-bold italic underline">
+      {verb.infinitive}
+    </h2>
+    {#each verb.english as englishVerb, index}
+      <h3 class="text-center text-4xl font-bold italic underline">
+        {index + 1}. to {englishVerb}
+      </h3>
+    {/each}
   </div>
   <div class="flex flex-col text-3xl">
     <Conjugation

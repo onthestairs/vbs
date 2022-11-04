@@ -1,5 +1,14 @@
 import csv
 import json
+from collections import defaultdict
+
+translations = defaultdict(list)
+
+with open("./fr-en.csv") as f:
+    reader = csv.reader(f)
+    for french, english in reader:
+        translations[french].append(english)
+
 
 verbs = []
 
@@ -8,11 +17,16 @@ with open("./french-verb-conjugation.csv") as f:
     seen_infinitives = set()
     for row in reader:
         infinitive = row["infinitive"]
+        english = translations.get(infinitive)
+        if not english:
+            print(f"No translation for {infinitive}")
+            continue
         if infinitive in seen_infinitives:
             print(f"Skipping {infinitive}, Already seen")
             continue
         seen_infinitives.add(infinitive)
         verb = {
+            "english": english,
             "infinitive": infinitive,
             "indicative": {
                 "present": {
@@ -34,7 +48,27 @@ with open("./french-verb-conjugation.csv") as f:
                     "third_person_plural": row[
                         "indicative|present|third person plural"
                     ],
-                }
+                },
+                "imperfect": {
+                    "first_person_singular": row[
+                        "indicative|imperfect|first person singular"
+                    ],
+                    "second_person_singular": row[
+                        "indicative|imperfect|second person singular"
+                    ],
+                    "third_person_singular": row[
+                        "indicative|imperfect|third person singular"
+                    ],
+                    "first_person_plural": row[
+                        "indicative|imperfect|first person plural"
+                    ],
+                    "second_person_plural": row[
+                        "indicative|imperfect|second person plural"
+                    ],
+                    "third_person_plural": row[
+                        "indicative|imperfect|third person plural"
+                    ],
+                },
             },
         }
         verbs.append(verb)

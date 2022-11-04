@@ -5,7 +5,9 @@
 
   let allInfinitives = verbs.map((verb) => verb.infinitive);
   let topN = 20;
-  let tenses = ["indicative|present"];
+  let defaultVerbForm = ["indicative", "present"];
+  let verbForms = [defaultVerbForm];
+  $: console.log(verbForms);
   $: goodInfinitives = topN === null ? allInfinitives : top100.slice(0, topN);
   let filteredVerbs = verbs;
   $: filteredVerbs = verbs.filter((verb) =>
@@ -13,15 +15,29 @@
   );
 
   $: verbIndex = Math.floor(Math.random() * filteredVerbs.length);
-  const randomise = () => {
+  const randomiseVerb = () => {
     verbIndex = Math.floor(Math.random() * filteredVerbs.length);
   };
   let verb = filteredVerbs[verbIndex];
   $: verb = filteredVerbs[verbIndex];
+
+  $: verbFormIndex = Math.floor(Math.random() * verbForms.length);
+  const randomiseVerbForm = () => {
+    verbFormIndex = Math.floor(Math.random() * verbForms.length);
+  };
+  let verbForm = verbForms[verbFormIndex];
+  $: verbForm = verbForms[verbFormIndex];
+
+  const randomise = () => {
+    randomiseVerb();
+    randomiseVerbForm();
+  };
 </script>
 
 <main class="mx-auto max-w-5xl font-garamond">
-  <div class="mb-12 flex flex-row justify-between border-b-2 border-black">
+  <div
+    class="mb-12 mt-12 flex flex-row justify-between border-b-2 border-black"
+  >
     <h2 class="text-3xl font-bold">French conjugation</h2>
     <div class="flex flex-col">
       <div>
@@ -54,11 +70,20 @@
         <label>
           <input
             type="checkbox"
-            bind:group={tenses}
+            bind:group={verbForms}
             name="tenses"
-            value={"indicative|present"}
+            value={defaultVerbForm}
           />
           Indicative/Present
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            bind:group={verbForms}
+            name="tenses"
+            value={["indicative", "imperfect"]}
+          />
+          Indicative/Imperfect
         </label>
       </div>
     </div>
@@ -72,6 +97,6 @@
     </div>
   </div>
   <div>
-    <Verb {verb} />
+    <Verb {verb} {verbForm} />
   </div>
 </main>
