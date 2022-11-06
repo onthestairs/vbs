@@ -6,7 +6,7 @@
   export let revealAnswer;
 </script>
 
-<div class="relative mb-8 flex flex-row text-4xl" class:bg-lime-300={isCorrect}>
+<div class="relative mb-8 flex flex-row text-4xl" class:bg-lime-200={isCorrect}>
   <span
     class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300  px-3 text-4xl text-gray-900 "
   >

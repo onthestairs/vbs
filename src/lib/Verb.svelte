@@ -3,6 +3,7 @@
 
   export let verb;
   export let verbForm;
+  export let allCorrect;
 
   $: [mood, tense] = verbForm;
   $: console.log(mood, tense);
@@ -82,19 +83,27 @@
   let thirdPersonPlural = "";
   $: thirdPersonPluralCorrect =
     thirdPersonPlural === answers.third_person_plural;
+
+  $: allCorrect =
+    firstPersonSingularCorrect &&
+    secondPersonSingularCorrect &&
+    thirdPersonSingularCorrect &&
+    firstPersonPluralCorrect &&
+    secondPersonPluralCorrect &&
+    thirdPersonPluralCorrect;
 </script>
 
 <div class="grid grid-cols-2 gap-4">
   <div>
-    <h4 class="text-center text-4xl font-bold italic ">
-      Mood: {mood}<br />
-      Tense: {tense}
+    <h4 class="mb-6 text-center text-4xl font-bold ">
+      Mood: <span class="text-purple-800">{mood}</span><br />
+      Tense: <span class="text-orange-600">{tense} </span>
     </h4>
     <h2 class="mb-16 text-center text-8xl font-bold italic underline">
       {verb.infinitive}
     </h2>
     {#each verb.english as englishVerb, index}
-      <h3 class="text-center text-4xl font-bold italic underline">
+      <h3 class="text-center text-4xl italic ">
         {index + 1}. to {englishVerb}
       </h3>
     {/each}

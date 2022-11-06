@@ -4,15 +4,17 @@
   import Verb from "./lib/Verb.svelte";
 
   let allInfinitives = verbs.map((verb) => verb.infinitive);
+  let topNChoices = [10, 20, 50, 100, null];
   let topN = 20;
-  let defaultVerbForm = ["indicative", "present"];
-  let verbForms = [defaultVerbForm];
-  $: console.log(verbForms);
   $: goodInfinitives = topN === null ? allInfinitives : top100.slice(0, topN);
   let filteredVerbs = verbs;
   $: filteredVerbs = verbs.filter((verb) =>
     goodInfinitives.includes(verb.infinitive)
   );
+
+  let indicativePresent = ["indicative", "present"];
+  let indicativeImperfect = ["indicative", "imperfect"];
+  let verbForms = [indicativePresent];
 
   $: verbIndex = Math.floor(Math.random() * filteredVerbs.length);
   const randomiseVerb = () => {
@@ -32,39 +34,30 @@
     randomiseVerb();
     randomiseVerbForm();
   };
+
+  let nextButton;
+  let allCorrect;
+  $: if (allCorrect) {
+    nextButton.focus();
+  }
+  $: nextButtonText = allCorrect ? "Next" : "Skip";
 </script>
 
 <main class="mx-auto max-w-5xl font-garamond">
-  <div
-    class="mb-12 mt-12 flex flex-row justify-between border-b-2 border-black"
-  >
-    <h2 class="text-3xl font-bold">French conjugation</h2>
-    <div class="flex flex-col">
-      <div>
-        <label>
-          <input type="radio" bind:group={topN} name="topN" value={10} />
-          Top 10
-        </label>
-
-        <label>
-          <input type="radio" bind:group={topN} name="topN" value={20} />
-          Top 20
-        </label>
-
-        <label>
-          <input type="radio" bind:group={topN} name="topN" value={50} />
-          Top 50
-        </label>
-
-        <label>
-          <input type="radio" bind:group={topN} name="topN" value={100} />
-          Top 100
-        </label>
-
-        <label>
-          <input type="radio" bind:group={topN} name="topN" value={null} />
-          All
-        </label>
+  <div class="mb-12 mt-4 flex flex-row justify-between border-b-2 border-black">
+    <h2 class="pb-4 text-3xl font-bold">La conjugaison française 🇫🇷</h2>
+    <div class="flex flex-row">
+      <div class="mr-8">
+        {#each topNChoices as choice}
+          <label class="mr-2">
+            <input type="radio" bind:group={topN} name="topN" value={choice} />
+            {#if choice === null}
+              All
+            {:else}
+              Top {choice}
+            {/if}
+          </label>
+        {/each}
       </div>
       <div>
         <label>
@@ -72,31 +65,38 @@
             type="checkbox"
             bind:group={verbForms}
             name="tenses"
-            value={defaultVerbForm}
+            value={indicativePresent}
+            disabled={verbForms.length == 1 &&
+              verbForms[0] == indicativePresent}
           />
           Indicative/Present
-        </label>
+        </label><br />
         <label>
           <input
             type="checkbox"
             bind:group={verbForms}
             name="tenses"
-            value={["indicative", "imperfect"]}
+            value={indicativeImperfect}
+            disabled={verbForms.length == 1 &&
+              verbForms[0] == indicativeImperfect}
           />
           Indicative/Imperfect
         </label>
       </div>
     </div>
-    <div>
-      <button
-        class="bg-black px-4 py-2 text-sm font-semibold text-white "
-        on:click={randomise}
-      >
-        Next
-      </button>
-    </div>
   </div>
   <div>
-    <Verb {verb} {verbForm} />
+    <Verb {verb} {verbForm} bind:allCorrect />
+  </div>
+  <div class="mt-8 flex items-center justify-center">
+    <div>
+      <input
+        type="button"
+        value={nextButtonText}
+        class="cursor-pointer bg-black px-4 py-2 text-4xl font-semibold text-white "
+        on:click={randomise}
+        bind:this={nextButton}
+      />
+    </div>
   </div>
 </main>
