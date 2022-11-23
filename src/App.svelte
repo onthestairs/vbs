@@ -6,7 +6,23 @@
   let allInfinitives = verbs.map((verb) => verb.infinitive);
   let topNChoices = [10, 20, 50, 100, null];
   let topN = 20;
-  $: goodInfinitives = topN === null ? allInfinitives : top100.slice(0, topN);
+  let customRegex, customRegexInput;
+  const onCustomRegexBlur = () => {
+    customRegex = customRegexInput;
+  };
+  let filterInfinitives = (topN, customRegex) => {
+    if (topN === null) {
+      return allInfinitives;
+    }
+    if (topN === "custom") {
+      const re = new RegExp(customRegex);
+      return top100.filter((verb) => {
+        return verb.match(re);
+      });
+    }
+    return top100.slice(0, topN);
+  };
+  $: goodInfinitives = filterInfinitives(topN, customRegex);
   let filteredVerbs = verbs;
   $: filteredVerbs = verbs.filter((verb) =>
     goodInfinitives.includes(verb.infinitive)
@@ -58,6 +74,12 @@
             {/if}
           </label>
         {/each}
+        <br />
+        <label class="mr-2">
+          <input type="radio" bind:group={topN} name="topN" value={"custom"} />
+          Custom
+        </label>
+        <input bind:value={customRegexInput} on:blur={onCustomRegexBlur} />
       </div>
       <div>
         <label>
