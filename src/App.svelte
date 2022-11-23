@@ -79,7 +79,11 @@
           <input type="radio" bind:group={topN} name="topN" value={"custom"} />
           Custom
         </label>
-        <input bind:value={customRegexInput} on:blur={onCustomRegexBlur} />
+        <input
+          bind:value={customRegexInput}
+          on:focus={() => (topN = "custom")}
+          on:blur={onCustomRegexBlur}
+        />
       </div>
       <div>
         <label>
