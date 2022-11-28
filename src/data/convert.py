@@ -69,6 +69,22 @@ with open("./french-verb-conjugation.csv") as f:
                         "indicative|imperfect|third person plural"
                     ],
                 },
+                "future": {
+                    "first_person_singular": row[
+                        "indicative|future|first person singular"
+                    ],
+                    "second_person_singular": row[
+                        "indicative|future|second person singular"
+                    ],
+                    "third_person_singular": row[
+                        "indicative|future|third person singular"
+                    ],
+                    "first_person_plural": row["indicative|future|first person plural"],
+                    "second_person_plural": row[
+                        "indicative|future|second person plural"
+                    ],
+                    "third_person_plural": row["indicative|future|third person plural"],
+                },
             },
         }
         verbs.append(verb)

@@ -30,6 +30,7 @@
 
   let indicativePresent = ["indicative", "present"];
   let indicativeImperfect = ["indicative", "imperfect"];
+  let indicativeFuture = ["indicative", "future"];
   let verbForms = [indicativePresent];
 
   $: verbIndex = Math.floor(Math.random() * filteredVerbs.length);
@@ -107,6 +108,17 @@
               verbForms[0] == indicativeImperfect}
           />
           Indicative/Imperfect
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            bind:group={verbForms}
+            name="tenses"
+            value={indicativeFuture}
+            disabled={verbForms.length == 1 && verbForms[0] == indicativeFuture}
+          />
+          Indicative/Future
         </label>
       </div>
     </div>
