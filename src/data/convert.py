@@ -86,6 +86,48 @@ with open("./french-verb-conjugation.csv") as f:
                     "third_person_plural": row["indicative|future|third person plural"],
                 },
             },
+            "subjunctive": {
+                "present": {
+                    "first_person_singular": row[
+                        "subjunctive|present|first person singular"
+                    ],
+                    "second_person_singular": row[
+                        "subjunctive|present|second person singular"
+                    ],
+                    "third_person_singular": row[
+                        "subjunctive|present|third person singular"
+                    ],
+                    "first_person_plural": row[
+                        "subjunctive|present|first person plural"
+                    ],
+                    "second_person_plural": row[
+                        "subjunctive|present|second person plural"
+                    ],
+                    "third_person_plural": row[
+                        "subjunctive|present|third person plural"
+                    ],
+                },
+                "imperfect": {
+                    "first_person_singular": row[
+                        "subjunctive|imperfect|first person singular"
+                    ],
+                    "second_person_singular": row[
+                        "subjunctive|imperfect|second person singular"
+                    ],
+                    "third_person_singular": row[
+                        "subjunctive|imperfect|third person singular"
+                    ],
+                    "first_person_plural": row[
+                        "subjunctive|imperfect|first person plural"
+                    ],
+                    "second_person_plural": row[
+                        "subjunctive|imperfect|second person plural"
+                    ],
+                    "third_person_plural": row[
+                        "subjunctive|imperfect|third person plural"
+                    ],
+                },
+            },
         }
         verbs.append(verb)
 

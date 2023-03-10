@@ -31,6 +31,8 @@
   let indicativePresent = ["indicative", "present"];
   let indicativeImperfect = ["indicative", "imperfect"];
   let indicativeFuture = ["indicative", "future"];
+  let subjunctivePresent = ["subjunctive", "present"];
+  let subjunctiveImperfect = ["subjunctive", "imperfect"];
   let verbForms = [indicativePresent];
 
   $: verbIndex = Math.floor(Math.random() * filteredVerbs.length);
@@ -119,6 +121,30 @@
             disabled={verbForms.length == 1 && verbForms[0] == indicativeFuture}
           />
           Indicative/Future
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            bind:group={verbForms}
+            name="tenses"
+            value={subjunctivePresent}
+            disabled={verbForms.length == 1 &&
+              verbForms[0] == subjunctivePresent}
+          />
+          Subjunctive/Present
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            bind:group={verbForms}
+            name="tenses"
+            value={subjunctiveImperfect}
+            disabled={verbForms.length == 1 &&
+              verbForms[0] == subjunctiveImperfect}
+          />
+          Subjunctive/Imperfect
         </label>
       </div>
     </div>
