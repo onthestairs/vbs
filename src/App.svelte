@@ -183,18 +183,22 @@
       </div>
     </div>
   </div>
-  <div>
-    <Verb {verb} {verbForm} bind:allCorrect />
-  </div>
-  <div class="mt-8 flex items-center justify-center">
+  {#if verb !== undefined}
     <div>
-      <input
-        type="button"
-        value={nextButtonText}
-        class="cursor-pointer bg-black px-4 py-2 text-4xl font-semibold text-white "
-        on:click={randomise}
-        bind:this={nextButton}
-      />
+      <Verb {verb} {verbForm} bind:allCorrect />
     </div>
-  </div>
+    <div class="mt-8 flex items-center justify-center">
+      <div>
+        <input
+          type="button"
+          value={nextButtonText}
+          class="cursor-pointer bg-black px-4 py-2 text-4xl font-semibold text-white "
+          on:click={randomise}
+          bind:this={nextButton}
+        />
+      </div>
+    </div>
+  {:else}
+    No matching verbs
+  {/if}
 </main>
