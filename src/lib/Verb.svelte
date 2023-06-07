@@ -5,7 +5,7 @@
   export let verbForm;
   export let allCorrect;
 
-  $: [mood, tense] = verbForm;
+  $: [mood, tense] = verbForm.split("-");
 
   const startsWithAVowel = (word) => {
     return word.match("^[aeioué].*");

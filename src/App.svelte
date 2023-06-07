@@ -1,14 +1,29 @@
 <script>
+  import { query } from "svelte-pathfinder";
+
   import verbs from "./data/verbs.json";
   import top100 from "./data/top-100.json";
   import Verb from "./lib/Verb.svelte";
 
   let allInfinitives = verbs.map((verb) => verb.infinitive);
   let topNChoices = [10, 20, 50, 100, null];
-  let topN = 20;
-  let customRegex, customRegexInput;
+
+  const omit = (o, k) => {
+    let newK = {};
+    for (let l in o) {
+      if (l !== k) {
+        newK[l] = o[l];
+      }
+    }
+    return newK;
+  };
+
+  $: if ($query.topN != "custom") {
+    $query = omit($query, "customRegex");
+  }
+  let customRegexInput;
   const onCustomRegexBlur = () => {
-    customRegex = customRegexInput;
+    $query.customRegex = customRegexInput;
   };
   let filterInfinitives = (topN, customRegex) => {
     if (topN === null) {
@@ -22,18 +37,25 @@
     }
     return top100.slice(0, topN);
   };
-  $: goodInfinitives = filterInfinitives(topN, customRegex);
+  $: goodInfinitives = filterInfinitives($query.topN, $query.customRegex);
   let filteredVerbs = verbs;
   $: filteredVerbs = verbs.filter((verb) =>
     goodInfinitives.includes(verb.infinitive)
   );
 
-  let indicativePresent = ["indicative", "present"];
-  let indicativeImperfect = ["indicative", "imperfect"];
-  let indicativeFuture = ["indicative", "future"];
-  let subjunctivePresent = ["subjunctive", "present"];
-  let subjunctiveImperfect = ["subjunctive", "imperfect"];
-  let verbForms = [indicativePresent];
+  let indicativePresent = "indicative-present";
+  let indicativeImperfect = "indicative-imperfect";
+  let indicativeFuture = "indicative-future";
+  let subjunctivePresent = "subjunctive-present";
+  let subjunctiveImperfect = "subjunctive-imperfect";
+  let verbForms =
+    $query.verbForms !== undefined
+      ? $query.verbForms.split("|")
+      : [indicativePresent];
+  $: verbForms = $query.verbForms.split("|");
+  $: $query.verbForms = verbFormInputs.join("|");
+
+  let verbFormInputs = verbForms;
 
   $: verbIndex = Math.floor(Math.random() * filteredVerbs.length);
   const randomiseVerb = () => {
@@ -69,7 +91,12 @@
       <div class="mr-8">
         {#each topNChoices as choice}
           <label class="mr-2">
-            <input type="radio" bind:group={topN} name="topN" value={choice} />
+            <input
+              type="radio"
+              bind:group={$query.topN}
+              name="topN"
+              value={choice}
+            />
             {#if choice === null}
               All
             {:else}
@@ -79,12 +106,17 @@
         {/each}
         <br />
         <label class="mr-2">
-          <input type="radio" bind:group={topN} name="topN" value={"custom"} />
+          <input
+            type="radio"
+            bind:group={$query.topN}
+            name="topN"
+            value={"custom"}
+          />
           Custom
         </label>
         <input
           bind:value={customRegexInput}
-          on:focus={() => (topN = "custom")}
+          on:focus={() => ($query.topN = "custom")}
           on:blur={onCustomRegexBlur}
         />
       </div>
@@ -92,7 +124,7 @@
         <label>
           <input
             type="checkbox"
-            bind:group={verbForms}
+            bind:group={verbFormInputs}
             name="tenses"
             value={indicativePresent}
             disabled={verbForms.length == 1 &&
@@ -103,7 +135,7 @@
         <label>
           <input
             type="checkbox"
-            bind:group={verbForms}
+            bind:group={verbFormInputs}
             name="tenses"
             value={indicativeImperfect}
             disabled={verbForms.length == 1 &&
@@ -115,7 +147,7 @@
         <label>
           <input
             type="checkbox"
-            bind:group={verbForms}
+            bind:group={verbFormInputs}
             name="tenses"
             value={indicativeFuture}
             disabled={verbForms.length == 1 && verbForms[0] == indicativeFuture}
@@ -126,7 +158,7 @@
         <label>
           <input
             type="checkbox"
-            bind:group={verbForms}
+            bind:group={verbFormInputs}
             name="tenses"
             value={subjunctivePresent}
             disabled={verbForms.length == 1 &&
@@ -138,7 +170,7 @@
         <label>
           <input
             type="checkbox"
-            bind:group={verbForms}
+            bind:group={verbFormInputs}
             name="tenses"
             value={subjunctiveImperfect}
             disabled={verbForms.length == 1 &&
