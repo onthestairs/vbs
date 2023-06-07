@@ -88,7 +88,7 @@
 
 <main class="mx-auto max-w-5xl font-garamond">
   <div class="mb-12 mt-4 flex flex-row justify-between border-b-2 border-black">
-    <h2 class="pb-4 text-3xl font-bold">La conjugaison française 🇫🇷</h2>
+    <h2 class="pb-4 text-3xl font-bold">🇫🇷 La conjugaison française 🇫🇷</h2>
     <div class="flex flex-row">
       <div class="mr-8">
         {#each topNChoices as choice}
