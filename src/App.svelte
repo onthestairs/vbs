@@ -87,99 +87,111 @@
 </script>
 
 <main class="mx-auto max-w-5xl font-garamond">
-  <div class="mb-12 mt-4 flex flex-row justify-between border-b-2 border-black">
-    <h2 class="pb-4 text-3xl font-bold">🇫🇷 La conjugaison française 🇫🇷</h2>
-    <div class="flex flex-row">
-      <div class="mr-8">
-        {#each topNChoices as choice}
+  <div class="mb-12 mt-4 flex flex-col justify-between ">
+    <h2 class="m-auto text-3xl font-bold underline">
+      🇫🇷 La conjugaison française 🇫🇷
+    </h2>
+    <div class="mt-8 flex items-center justify-center">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="rounded-md bg-violet-100 p-2">
+          <h3 class="font-bold">Verbes</h3>
+          {#each topNChoices as choice}
+            <label class="mr-2">
+              <input
+                type="radio"
+                bind:group={$query.topN}
+                name="topN"
+                value={choice}
+              />
+              {#if choice === null}
+                Tous
+              {:else}
+                Top {choice}
+              {/if}
+            </label>
+          {/each}
+          <br />
           <label class="mr-2">
             <input
               type="radio"
               bind:group={$query.topN}
               name="topN"
-              value={choice}
+              value={"custom"}
             />
-            {#if choice === null}
-              Tous
-            {:else}
-              Top {choice}
-            {/if}
+            Custom
           </label>
-        {/each}
-        <br />
-        <label class="mr-2">
           <input
-            type="radio"
-            bind:group={$query.topN}
-            name="topN"
-            value={"custom"}
+            bind:value={customRegexInput}
+            on:focus={() => ($query.topN = "custom")}
+            on:blur={onCustomRegexBlur}
           />
-          Custom
-        </label>
-        <input
-          bind:value={customRegexInput}
-          on:focus={() => ($query.topN = "custom")}
-          on:blur={onCustomRegexBlur}
-        />
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            bind:group={verbFormInputs}
-            name="tenses"
-            value={indicativePresent}
-            disabled={verbForms.length == 1 &&
-              verbForms[0] == indicativePresent}
-          />
-          Indicatif/Présent
-        </label><br />
-        <label>
-          <input
-            type="checkbox"
-            bind:group={verbFormInputs}
-            name="tenses"
-            value={indicativeImperfect}
-            disabled={verbForms.length == 1 &&
-              verbForms[0] == indicativeImperfect}
-          />
-          Indicatif/Imparfait
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            bind:group={verbFormInputs}
-            name="tenses"
-            value={indicativeFuture}
-            disabled={verbForms.length == 1 && verbForms[0] == indicativeFuture}
-          />
-          Indicatif/Futur
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            bind:group={verbFormInputs}
-            name="tenses"
-            value={subjunctivePresent}
-            disabled={verbForms.length == 1 &&
-              verbForms[0] == subjunctivePresent}
-          />
-          Subjonctif/Présent
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            bind:group={verbFormInputs}
-            name="tenses"
-            value={subjunctiveImperfect}
-            disabled={verbForms.length == 1 &&
-              verbForms[0] == subjunctiveImperfect}
-          />
-          Subjonctif/Imperfait
-        </label>
+        </div>
+        <div class="rounded-md bg-teal-100 p-2">
+          <h3 class="font-bold">Mode/Tense</h3>
+          <div class="grid grid-cols-2 gap-2 ">
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={indicativePresent}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == indicativePresent}
+                />
+                Indicatif/Présent
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={indicativeImperfect}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == indicativeImperfect}
+                />
+                Indicatif/Imparfait
+              </label>
+              <br />
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={indicativeFuture}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == indicativeFuture}
+                />
+                Indicatif/Futur
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={subjunctivePresent}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == subjunctivePresent}
+                />
+                Subjonctif/Présent
+              </label>
+              <br />
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={subjunctiveImperfect}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == subjunctiveImperfect}
+                />
+                Subjonctif/Imperfait
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -187,7 +199,7 @@
     <div>
       <Verb {verb} {verbForm} bind:allCorrect />
     </div>
-    <div class="mt-8 flex items-center justify-center">
+    <div class="mt-4 flex items-center justify-center">
       <div>
         <input
           type="button"
