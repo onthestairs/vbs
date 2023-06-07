@@ -90,13 +90,23 @@
     firstPersonPluralCorrect &&
     secondPersonPluralCorrect &&
     thirdPersonPluralCorrect;
+
+  $: frenchMood = {
+    indicative: "indicatif",
+    subjunctive: "subjontif",
+  }[mood];
+  $: frenchTense = {
+    present: "présent",
+    future: "futur",
+    imperfect: "imperfait",
+  }[tense];
 </script>
 
 <div class="grid grid-cols-2 gap-4">
   <div>
     <h4 class="mb-6 text-center text-4xl font-bold ">
-      Mode: <span class="text-purple-800">{mood}</span><br />
-      Tense: <span class="text-orange-600">{tense} </span>
+      Mode: <span class="text-purple-800">{frenchMood}</span><br />
+      Tense: <span class="text-orange-600">{frenchTense} </span>
     </h4>
     <h2 class="mb-16 text-center text-8xl font-bold italic underline">
       {verb.infinitive}
