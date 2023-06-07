@@ -83,7 +83,7 @@
   $: if (allCorrect) {
     nextButton.focus();
   }
-  $: nextButtonText = allCorrect ? "Next" : "Skip";
+  $: nextButtonText = allCorrect ? "Suivant" : "Passer";
 </script>
 
 <main class="mx-auto max-w-5xl font-garamond">
@@ -100,7 +100,7 @@
               value={choice}
             />
             {#if choice === null}
-              All
+              Tous
             {:else}
               Top {choice}
             {/if}
@@ -132,7 +132,7 @@
             disabled={verbForms.length == 1 &&
               verbForms[0] == indicativePresent}
           />
-          Indicative/Present
+          Indicatif/Présent
         </label><br />
         <label>
           <input
@@ -143,7 +143,7 @@
             disabled={verbForms.length == 1 &&
               verbForms[0] == indicativeImperfect}
           />
-          Indicative/Imperfect
+          Indicatif/Imparfait
         </label>
         <br />
         <label>
@@ -154,7 +154,7 @@
             value={indicativeFuture}
             disabled={verbForms.length == 1 && verbForms[0] == indicativeFuture}
           />
-          Indicative/Future
+          Indicatif/Futur
         </label>
         <br />
         <label>
@@ -166,7 +166,7 @@
             disabled={verbForms.length == 1 &&
               verbForms[0] == subjunctivePresent}
           />
-          Subjunctive/Present
+          Subjonctif/Présent
         </label>
         <br />
         <label>
@@ -178,7 +178,7 @@
             disabled={verbForms.length == 1 &&
               verbForms[0] == subjunctiveImperfect}
           />
-          Subjunctive/Imperfect
+          Subjonctif/Imperfait
         </label>
       </div>
     </div>
