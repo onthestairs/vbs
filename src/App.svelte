@@ -18,6 +18,8 @@
     return newK;
   };
 
+  $query.topN = $query.topN || 20;
+
   $: if ($query.topN != "custom") {
     $query = omit($query, "customRegex");
   }
