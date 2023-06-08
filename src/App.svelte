@@ -8,7 +8,7 @@
   import Verb from "./lib/Verb.svelte";
 
   let allInfinitives = verbs.map((verb) => verb.infinitive);
-  let topNChoices = [10, 20, 50, 100, null];
+  let topNChoices = [10, 20, 50, 100];
 
   const omit = (o, k) => {
     let newK = {};
@@ -30,7 +30,7 @@
     $query.customRegex = customRegexInput;
   };
   let filterInfinitives = (verbs, customRegex) => {
-    if (verbs === null) {
+    if (verbs === "all") {
       return allInfinitives;
     }
     if (verbs === "custom") {
@@ -126,13 +126,18 @@
                 name="topN"
                 value={`top${choice}`}
               />
-              {#if choice === null}
-                Tous
-              {:else}
-                Top {choice}
-              {/if}
+              Top {choice}
             </label>
           {/each}
+          <label class="mr-2">
+            <input
+              type="radio"
+              bind:group={$query.verbs}
+              name="topN"
+              value={`all`}
+            />
+            Tous
+          </label>
           <br />
 
           <label class="mr-2">
