@@ -3,6 +3,8 @@
 
   import verbs from "./data/verbs.json";
   import top100 from "./data/top-100.json";
+  import group2 from "./data/2e-groupe.json";
+  import group3 from "./data/3e-groupe.json";
   import Verb from "./lib/Verb.svelte";
 
   let allInfinitives = verbs.map((verb) => verb.infinitive);
@@ -33,8 +35,23 @@
     }
     if (topN === "custom") {
       const re = new RegExp(customRegex);
-      return top100.filter((verb) => {
+      return allInfinitives.filter((verb) => {
         return verb.match(re);
+      });
+    }
+    if (topN === "1er") {
+      return allInfinitives.filter((verb) => {
+        return !(group2.includes(verb) || group3.includes(verb));
+      });
+    }
+    if (topN === "2e") {
+      return allInfinitives.filter((verb) => {
+        return group2.includes(verb);
+      });
+    }
+    if (topN === "3e") {
+      return allInfinitives.filter((verb) => {
+        return group3.includes(verb);
       });
     }
     return top100.slice(0, topN);
@@ -110,6 +127,36 @@
               {/if}
             </label>
           {/each}
+          <br />
+
+          <label class="mr-2">
+            <input
+              type="radio"
+              bind:group={$query.topN}
+              name="1er"
+              value={"1er"}
+            />
+            1er groupe
+          </label>
+          <label class="mr-2">
+            <input
+              type="radio"
+              bind:group={$query.topN}
+              name="2e"
+              value={"2e"}
+            />
+            2e groupe
+          </label>
+          <label class="mr-2">
+            <input
+              type="radio"
+              bind:group={$query.topN}
+              name="3e"
+              value={"3e"}
+            />
+            3e groupe
+          </label>
+
           <br />
           <label class="mr-2">
             <input
