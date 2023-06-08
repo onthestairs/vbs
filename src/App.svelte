@@ -20,43 +20,49 @@
     return newK;
   };
 
-  $query.topN = $query.topN || 20;
+  $query.verbs = $query.verbs || "top20";
 
-  $: if ($query.topN != "custom") {
+  $: if ($query.verbs != "custom") {
     $query = omit($query, "customRegex");
   }
   let customRegexInput;
   const onCustomRegexBlur = () => {
     $query.customRegex = customRegexInput;
   };
-  let filterInfinitives = (topN, customRegex) => {
-    if (topN === null) {
+  let filterInfinitives = (verbs, customRegex) => {
+    if (verbs === null) {
       return allInfinitives;
     }
-    if (topN === "custom") {
+    if (verbs === "custom") {
       const re = new RegExp(customRegex);
       return allInfinitives.filter((verb) => {
         return verb.match(re);
       });
     }
-    if (topN === "1er") {
+    if (verbs === "1er") {
       return allInfinitives.filter((verb) => {
         return !(group2.includes(verb) || group3.includes(verb));
       });
     }
-    if (topN === "2e") {
+    if (verbs === "2e") {
       return allInfinitives.filter((verb) => {
         return group2.includes(verb);
       });
     }
-    if (topN === "3e") {
+    if (verbs === "3e") {
       return allInfinitives.filter((verb) => {
         return group3.includes(verb);
       });
     }
-    return top100.slice(0, topN);
+    const topPrefix = "top";
+    if (verbs.startsWith(topPrefix)) {
+      const trimmed = verbs.substring(topPrefix.length);
+      const n = parseInt(trimmed);
+      return top100.slice(0, n);
+    }
+    return allInfinitives;
   };
-  $: goodInfinitives = filterInfinitives($query.topN, $query.customRegex);
+  $: goodInfinitives = filterInfinitives($query.verbs, $query.customRegex);
   let filteredVerbs = verbs;
   $: filteredVerbs = verbs.filter((verb) =>
     goodInfinitives.includes(verb.infinitive)
@@ -116,9 +122,9 @@
             <label class="mr-2">
               <input
                 type="radio"
-                bind:group={$query.topN}
+                bind:group={$query.verbs}
                 name="topN"
-                value={choice}
+                value={`top${choice}`}
               />
               {#if choice === null}
                 Tous
@@ -132,7 +138,7 @@
           <label class="mr-2">
             <input
               type="radio"
-              bind:group={$query.topN}
+              bind:group={$query.verbs}
               name="1er"
               value={"1er"}
             />
@@ -141,7 +147,7 @@
           <label class="mr-2">
             <input
               type="radio"
-              bind:group={$query.topN}
+              bind:group={$query.verbs}
               name="2e"
               value={"2e"}
             />
@@ -150,7 +156,7 @@
           <label class="mr-2">
             <input
               type="radio"
-              bind:group={$query.topN}
+              bind:group={$query.verbs}
               name="3e"
               value={"3e"}
             />
@@ -161,7 +167,7 @@
           <label class="mr-2">
             <input
               type="radio"
-              bind:group={$query.topN}
+              bind:group={$query.verbs}
               name="topN"
               value={"custom"}
             />
@@ -169,7 +175,7 @@
           </label>
           <input
             bind:value={customRegexInput}
-            on:focus={() => ($query.topN = "custom")}
+            on:focus={() => ($query.verbs = "custom")}
             on:blur={onCustomRegexBlur}
           />
         </div>
