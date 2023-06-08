@@ -8,14 +8,15 @@
 
 <div class="relative mb-8 flex flex-row text-4xl" class:bg-lime-200={isCorrect}>
   <span
-    class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300  px-3 text-4xl text-gray-900 "
+    class="inline-flex items-center rounded-l-md border-0 border-r-0 border-black bg-gray-200 px-3 text-4xl text-gray-900"
   >
     {pronoun}
   </span>
   <input
     bind:value
-    class="block w-full min-w-0 flex-1 rounded-none rounded-r-lg border border-gray-300 p-2.5 text-4xl text-gray-900 focus:border-blue-500 focus:ring-blue-500  "
-    class:bg-lime-300={isCorrect}
+    class="focus:border-1 block w-full min-w-0 flex-1 rounded-none rounded-r-lg border-black p-2.5 text-4xl text-gray-900"
+    class:bg-green-500={isCorrect}
+    class:bg-gray-100={!isCorrect}
     bind:this={inputRef}
   />
   {#if !isCorrect}

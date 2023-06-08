@@ -105,14 +105,14 @@
 <div class="grid grid-cols-2 gap-4">
   <div>
     <h4 class="mb-6 text-center text-4xl font-bold ">
-      Mode: <span class="text-purple-800">{frenchMood}</span><br />
-      Tense: <span class="text-orange-600">{frenchTense} </span>
+      Mode: <span class="text-blue-600">{frenchMood}</span><br />
+      Tense: <span class="text-red-600">{frenchTense} </span>
     </h4>
     <h2 class="mb-16 text-center text-8xl font-bold italic underline">
       {verb.infinitive}
     </h2>
     {#each verb.english as englishVerb, index}
-      <h3 class="text-center text-4xl italic ">
+      <h3 class="text-center text-4xl italic">
         {index + 1}. to {englishVerb}
       </h3>
     {/each}
