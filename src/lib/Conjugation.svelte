@@ -21,7 +21,7 @@
   {#if !isCorrect}
     <button
       type="submit"
-      class="absolute right-2.5 bottom-3.5 bg-black px-2 py-2 text-sm font-medium text-white"
+      class="absolute right-2.5 bottom-3.5 rounded-md bg-black px-2 py-2 text-sm font-medium text-white"
       on:click={revealAnswer}>Révéler</button
     >
   {/if}

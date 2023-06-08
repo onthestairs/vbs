@@ -251,7 +251,7 @@
         <input
           type="button"
           value={nextButtonText}
-          class="cursor-pointer bg-black px-4 py-2 text-4xl font-semibold text-white "
+          class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
           on:click={randomise}
           bind:this={nextButton}
         />
