@@ -106,7 +106,7 @@
   $: if (allCorrect) {
     nextButton.focus();
   }
-  $: nextButtonText = allCorrect ? "Suivant" : "Passer";
+  $: nextButtonText = allCorrect ? "Suivant" : "Passer à l'autre verbe";
 </script>
 
 <main class="mx-auto max-w-5xl font-garamond">
@@ -176,7 +176,7 @@
               name="topN"
               value={"custom"}
             />
-            Custom
+            Trier
           </label>
           <input
             bind:value={customRegexInput}
