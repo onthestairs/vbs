@@ -1,44 +1,45 @@
 <script>
   import oralSets from "../../data/oral/sets.json";
   let currentWord;
-  let shouldPlay = true;
   let maxIterations = 5;
-  let bufferSeconds = 1;
+  let bufferSeconds = 0.5;
+  let queue = [];
 
   const makeAudioFile = (word) => {
     return `/public/oral/audio/${word}.mp3`;
   };
-  const play = async (set) => {
-    let i = 0;
-    let l = set.length;
-    const audios = set.map((word) => {
+
+  const runQueue = () => {
+    let word = queue.shift();
+    if (word !== undefined) {
       const url = makeAudioFile(word);
-      let audioFile = new Audio(url);
-      return audioFile;
-    });
-    console.log("Audios", audios);
-    const playNext = () => {
-      const iterations = i / l;
-      if (iterations > maxIterations || !shouldPlay) {
-        shouldPlay = true;
-        return;
-      }
-      const index = i % l;
-      console.log(`Playing ${index}`);
-      const word = set[index];
-      currentWord = word;
-      const audioFile = audios[index];
-      audioFile.play();
-      i += 1;
-    };
-    audios.forEach(async (audio) => {
+      let audio = new Audio(url);
       audio.onended = () => {
         const delay = audio.duration + bufferSeconds;
         console.log(`Delaying for ${delay}`);
-        setTimeout(() => playNext(), 1000 * delay);
+        setTimeout(() => runQueue(), 1000 * delay);
       };
-    });
-    playNext();
+      currentWord = word;
+      audio.play();
+    } else {
+      setTimeout(runQueue, 100);
+    }
+  };
+  runQueue();
+
+  const resetQueue = () => {
+    queue = [];
+    currentWord = null;
+  };
+
+  const enqueueSet = (set) => {
+    let toQueue = [];
+    for (let i = 0; i < maxIterations; i++) {
+      set.forEach((word) => {
+        toQueue.push(word);
+      });
+    }
+    queue = toQueue;
   };
 </script>
 
@@ -48,7 +49,11 @@
   </div>
   {#each oralSets as set}
     <div>
-      <input type="button" value="Play" on:click={() => play(set)} />
+      {#if queue.length === 0}
+        <input type="button" value="Play" on:click={() => enqueueSet(set)} />
+      {:else}
+        <input type="button" value="Stop" on:click={() => resetQueue()} />
+      {/if}
       {#each set as word}
         {#if word == currentWord}
           <p class="text-6xl font-bold text-red-600">{word}</p>
