@@ -42,6 +42,9 @@
             pkgs.nodejs-16_x
             pkgs.nodePackages.npm
             pkgs.python3
+            pkgs.yq-go
+            pkgs.jq
+            pkgs.ffmpeg
             lttoolbox
           ];
           shellHook = ''
