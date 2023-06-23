@@ -1,7 +1,7 @@
 {
   description = "verb conjugation";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.05";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
     flake-utils.url = github:numtide/flake-utils;
   };
   outputs = { self, nixpkgs, flake-utils }:
@@ -39,7 +39,7 @@
         devShell = pkgs.mkShell {
           # development environment
           buildInputs = [
-            pkgs.nodejs-16_x
+            pkgs.nodejs-18_x
             pkgs.nodePackages.npm
             pkgs.python3
             pkgs.yq-go
