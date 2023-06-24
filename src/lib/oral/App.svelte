@@ -8,6 +8,7 @@
   let filteredSets = oralSets;
   let currentSet;
   let addToQueue = false;
+  let currentAudio = null;
   $: setsIndex = Math.floor(Math.random() * filteredSets.length);
   $: currentSet = filteredSets[setsIndex];
   $: repetitionsToCome =
@@ -26,6 +27,7 @@
       const url = makeAudioFile(word);
       let audio = new Audio(url);
       audio.onended = () => {
+        currentAudio = null;
         const delay = audio.duration + bufferSeconds;
         console.log(`Delaying for ${delay}`);
         setTimeout(() => {
@@ -41,6 +43,7 @@
         }, 1000 * delay);
       };
       currentWord = word;
+      currentAudio = audio;
       audio.play();
     } else {
       currentWord = null;
@@ -68,6 +71,14 @@
   const resetQueue = () => {
     queue = [];
     currentWord = null;
+  };
+
+  const stop = () => {
+    if (currentAudio !== null) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    resetQueue();
   };
 
   const enqueueSet = (set) => {
@@ -148,8 +159,8 @@
         <input
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-          on:click={() => resetQueue()}
           value="Arrêter"
+          on:click={() => stop()}
         />
       {/if}
     </div>
