@@ -24,7 +24,7 @@
   };
 
   const makeAudioFile = (word) => {
-    return `/public/oral/audio/${word}.mp3`;
+    return `/oral/audio/${word}.mp3`;
   };
 
   const runQueue = () => {
