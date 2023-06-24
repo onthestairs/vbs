@@ -91,22 +91,22 @@
   <div class="mt-8 flex items-center justify-center">
     <div class="grid grid-cols-2 gap-4">
       <div class="rounded-md bg-violet-100 p-2">
-        <h3 class="font-bold">Optiones</h3>
+        <h3 class="font-bold">Options</h3>
         <div>
           <label class="mr-2">
-            Repetitions:
+            Répétitions:
             <input type="number" min="" bind:value={repetitions} />
           </label>
         </div>
         <div>
           <label class="mr-2">
-            Auto-skip:
+            Passer automatiquement:
             <input type="checkbox" bind:checked={autoskip} />
           </label>
         </div>
       </div>
       <div class="rounded-md bg-teal-100 p-2">
-        <h3 class="font-bold">Sets</h3>
+        <h3 class="font-bold">Groupes</h3>
         {#each oralSets as set}
           <label class="mr-2 inline-block">
             <input
@@ -122,7 +122,10 @@
     </div>
   </div>
   <div class="mt-32">
-    <div class="flex justify-center gap-12">
+    <div class="flex justify-center">
+      <div class="text-2xl ">Répétez après chaque mot</div>
+    </div>
+    <div class="mt-16 flex justify-center gap-12">
       {#each currentSet as word}
         {#if word == currentWord}
           <div class="text-6xl font-bold text-red-600">{word}</div>
@@ -136,7 +139,7 @@
         <input
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-          value="Play"
+          value="Jouer"
           on:click={() => {
             addToQueue = true;
           }}
@@ -145,7 +148,7 @@
         <input
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-          value="Stop"
+          value="Arrêtér"
           on:click={() => resetQueue()}
         />
       {/if}
@@ -155,7 +158,7 @@
         <input
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-          value="Passer a l'autre set"
+          value="Passer a l'autre groupe"
           on:click={() => newSet()}
         />
       {/if}
