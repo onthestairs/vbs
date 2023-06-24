@@ -148,8 +148,8 @@
         <input
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-          value="Arrêtér"
           on:click={() => resetQueue()}
+          value="Arrêter"
         />
       {/if}
     </div>
