@@ -99,18 +99,23 @@
           </label>
         </div>
       </div>
+      <div class="rounded-md bg-teal-100 p-2">
+        <h3 class="font-bold">Sets</h3>
+        {#each oralSets as set}
+          <label class="mr-2">
+            <input
+              type="checkbox"
+              bind:group={filteredSets}
+              value={set}
+              disabled={filteredSets.length === 1 && filteredSets[0] === set}
+            />
+            {set.join("/")}
+          </label>
+        {/each}
+      </div>
     </div>
   </div>
   <div class="mt-32">
-    <div class="flex justify-center gap-12">
-      {#each currentSet as word}
-        {#if word == currentWord}
-          <div class="text-6xl font-bold text-red-600">{word}</div>
-        {:else}
-          <div class="text-6xl font-bold text-blue-600">{word}</div>
-        {/if}
-      {/each}
-    </div>
     <div class="mt-4 flex items-center justify-center">
       {#if queue.length === 0}
         <input
@@ -129,12 +134,25 @@
           on:click={() => resetQueue()}
         />
       {/if}
-      <input
-        type="button"
-        class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
-        value="Passer a l'autre set"
-        on:click={() => newSet()}
-      />
+    </div>
+    <div class="flex justify-center gap-12">
+      {#each currentSet as word}
+        {#if word == currentWord}
+          <div class="text-6xl font-bold text-red-600">{word}</div>
+        {:else}
+          <div class="text-6xl font-bold text-blue-600">{word}</div>
+        {/if}
+      {/each}
+    </div>
+    <div class="mt-4 flex items-center justify-center">
+      {#if filteredSets.length > 1}
+        <input
+          type="button"
+          class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
+          value="Passer a l'autre set"
+          on:click={() => newSet()}
+        />
+      {/if}
     </div>
   </div>
 </main>
