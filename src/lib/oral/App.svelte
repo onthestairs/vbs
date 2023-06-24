@@ -108,7 +108,7 @@
       <div class="rounded-md bg-teal-100 p-2">
         <h3 class="font-bold">Sets</h3>
         {#each oralSets as set}
-          <label class="mr-2">
+          <label class="mr-2 inline-block">
             <input
               type="checkbox"
               bind:group={filteredSets}
