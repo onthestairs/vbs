@@ -10,6 +10,10 @@
   let addToQueue = false;
   $: setsIndex = Math.floor(Math.random() * filteredSets.length);
   $: currentSet = filteredSets[setsIndex];
+  $: repetitionsToCome =
+    queue.length > 0
+      ? Math.floor((queue.length - 1) / currentSet.length)
+      : undefined;
   $: if (addToQueue) {
     enqueueSet(currentSet);
     addToQueue = false;
