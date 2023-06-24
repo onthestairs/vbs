@@ -3,6 +3,10 @@
   import OralApp from "./lib/oral/App.svelte";
   import { path, query, fragment, pattern } from "svelte-pathfinder";
   let params;
+  // go to conjugation by default
+  if ((params = $pattern("/"))) {
+    $path = "/conjugation";
+  }
 </script>
 
 {#if (params = $pattern("/conjugation"))}
