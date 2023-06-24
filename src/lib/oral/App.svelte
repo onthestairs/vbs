@@ -2,12 +2,46 @@
   import oralSets from "../../data/oral/sets.json";
   let currentWord;
   let repetitions = 5;
+  let autoskip = false;
   let bufferSeconds = 0.5;
   let queue = [];
   let filteredSets = oralSets;
   let currentSet;
+  let addToQueue = false;
   $: setsIndex = Math.floor(Math.random() * filteredSets.length);
   $: currentSet = filteredSets[setsIndex];
+  $: if (addToQueue) {
+    enqueueSet(currentSet);
+    addToQueue = false;
+  }
+  $: playNext(queue);
+
+  const playNext = (words) => {
+    if (words.length > 0) {
+      const [word, ...nextWords] = queue;
+      const url = makeAudioFile(word);
+      let audio = new Audio(url);
+      audio.onended = () => {
+        const delay = audio.duration + bufferSeconds;
+        console.log(`Delaying for ${delay}`);
+        setTimeout(() => {
+          if (nextWords.length === 0 && autoskip) {
+            newSet();
+            addToQueue = true;
+          } else {
+            // i.e. if the queue hasn't been interfered with in the meantimme
+            if (queue === words) {
+              queue = nextWords;
+            }
+          }
+        }, 1000 * delay);
+      };
+      currentWord = word;
+      audio.play();
+    } else {
+      currentWord = null;
+    }
+  };
 
   const newSet = () => {
     queue = [];
@@ -27,30 +61,13 @@
     return `/oral/audio/${word}.mp3`;
   };
 
-  const runQueue = () => {
-    let word = queue.shift();
-    if (word !== undefined) {
-      const url = makeAudioFile(word);
-      let audio = new Audio(url);
-      audio.onended = () => {
-        const delay = audio.duration + bufferSeconds;
-        console.log(`Delaying for ${delay}`);
-        setTimeout(() => runQueue(), 1000 * delay);
-      };
-      currentWord = word;
-      audio.play();
-    } else {
-      setTimeout(runQueue, 100);
-    }
-  };
-  runQueue();
-
   const resetQueue = () => {
     queue = [];
     currentWord = null;
   };
 
   const enqueueSet = (set) => {
+    console.log("adding", set);
     let toQueue = [];
     for (let i = 0; i < repetitions; i++) {
       set.forEach((word) => {
@@ -69,10 +86,18 @@
     <div class="grid grid-cols-2 gap-4">
       <div class="rounded-md bg-violet-100 p-2">
         <h3 class="font-bold">Optiones</h3>
-        <label class="mr-2">
-          Repetitions:
-          <input type="number" bind:value={repetitions} />
-        </label>
+        <div>
+          <label class="mr-2">
+            Repetitions:
+            <input type="number" min="" bind:value={repetitions} />
+          </label>
+        </div>
+        <div>
+          <label class="mr-2">
+            Auto-skip:
+            <input type="checkbox" bind:checked={autoskip} />
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -92,7 +117,9 @@
           type="button"
           class="cursor-pointer rounded-md bg-black px-4 py-2 text-4xl font-semibold text-white "
           value="Play"
-          on:click={() => enqueueSet(currentSet)}
+          on:click={() => {
+            addToQueue = true;
+          }}
         />
       {:else}
         <input
