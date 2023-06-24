@@ -84,7 +84,9 @@
 
 <main class="mx-auto max-w-5xl font-garamond">
   <div class="mb-12 mt-4 flex flex-col justify-between ">
-    <h2 class="m-auto text-3xl font-bold underline">🇫🇷 Oral française 🇫🇷</h2>
+    <h2 class="m-auto text-3xl font-bold underline">
+      🇫🇷 La prononciation française 🇫🇷
+    </h2>
   </div>
   <div class="mt-8 flex items-center justify-center">
     <div class="grid grid-cols-2 gap-4">
