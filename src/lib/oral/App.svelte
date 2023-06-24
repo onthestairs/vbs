@@ -2,7 +2,7 @@
   import oralSets from "../../data/oral/sets.json";
   let currentWord;
   let repetitions = 5;
-  let autoskip = false;
+  let autoskip = true;
   let bufferSeconds = 0.5;
   let queue = [];
   let filteredSets = oralSets;
