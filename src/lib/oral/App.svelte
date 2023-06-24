@@ -122,7 +122,16 @@
     </div>
   </div>
   <div class="mt-32">
-    <div class="mt-4 flex items-center justify-center">
+    <div class="flex justify-center gap-12">
+      {#each currentSet as word}
+        {#if word == currentWord}
+          <div class="text-6xl font-bold text-red-600">{word}</div>
+        {:else}
+          <div class="text-6xl font-bold text-blue-600">{word}</div>
+        {/if}
+      {/each}
+    </div>
+    <div class="mt-32 flex items-center justify-center">
       {#if queue.length === 0}
         <input
           type="button"
@@ -140,15 +149,6 @@
           on:click={() => resetQueue()}
         />
       {/if}
-    </div>
-    <div class="flex justify-center gap-12">
-      {#each currentSet as word}
-        {#if word == currentWord}
-          <div class="text-6xl font-bold text-red-600">{word}</div>
-        {:else}
-          <div class="text-6xl font-bold text-blue-600">{word}</div>
-        {/if}
-      {/each}
     </div>
     <div class="mt-4 flex items-center justify-center">
       {#if filteredSets.length > 1}
