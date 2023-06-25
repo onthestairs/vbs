@@ -1,6 +1,7 @@
 <script>
   import ConjugationApp from "./lib/conjugation/App.svelte";
   import OralApp from "./lib/oral/App.svelte";
+  import deepEqual from "deep-equal";
   import { path, query, fragment, pattern } from "svelte-pathfinder";
   let params;
   // go to conjugation by default
@@ -39,17 +40,21 @@
   <ul>
     {#each navs as nav}
       <li>
-        <a
-          href={nav.path.join("/")}
-          class="text-gray-500 hover:text-black"
-          on:click={(e) => {
-            e.preventDefault();
-            $path = nav.path;
-            $query = {};
-          }}
-        >
-          {nav.text}
-        </a>
+        {#if !deepEqual(nav.path, $path)}
+          <a
+            href={nav.path.join("/")}
+            class="text-gray-500 hover:text-black"
+            on:click={(e) => {
+              e.preventDefault();
+              $path = nav.path;
+              $query = {};
+            }}
+          >
+            {nav.text}
+          </a>
+        {:else}
+          <p class="font-bold text-black ">{nav.text}</p>
+        {/if}
       </li>
     {/each}
   </ul>
