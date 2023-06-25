@@ -100,8 +100,8 @@
     </h2>
   </div>
   <div class="mt-8 flex items-center justify-center">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="rounded-md bg-violet-100 p-2">
+    <div class="grid grid-cols-6 gap-4">
+      <div class="col-span-2 rounded-md bg-violet-100 p-2">
         <h3 class="font-bold">Options</h3>
         <div>
           <label class="mr-2">
@@ -116,7 +116,7 @@
           </label>
         </div>
       </div>
-      <div class="rounded-md bg-teal-100 p-2">
+      <div class="col-span-4 rounded-md bg-teal-100 p-2">
         <h3 class="font-bold">Groupes</h3>
         {#each oralSets as set}
           <label class="mr-2 inline-block">
