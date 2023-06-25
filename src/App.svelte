@@ -23,7 +23,7 @@
     }
   }
   const navs = [
-    { text: "Conjugasion", path: ["conjugation"] },
+    { text: "Conjugaison", path: ["conjugation"] },
     { text: "Prononciation", path: ["pronunciation"] },
   ];
 </script>
