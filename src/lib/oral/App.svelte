@@ -134,7 +134,7 @@
   </div>
   <div class="mt-32">
     <div class="flex justify-center">
-      <div class="text-2xl ">Répétez après chaque mot</div>
+      <div class="text-2xl ">Répéter après chaque mot</div>
     </div>
     <div class="mt-16 flex justify-center gap-12">
       {#each currentSet as word}
