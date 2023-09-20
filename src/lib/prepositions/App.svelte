@@ -1,4 +1,5 @@
 <script>
+  // inspired by https://docs.google.com/spreadsheets/d/1ahwGOm2BLdOOUo3gLyeQ78WmS6DPWMPPAggnRJ7eKUI/edit#gid=361153762
   import prepositions from "../../data/prepositions/prepositions.json";
   $: index = Math.floor(Math.random() * prepositions.length);
   const getFreshIndex = () => {
