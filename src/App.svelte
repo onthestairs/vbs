@@ -7,7 +7,7 @@
   let params;
   // go to conjugation by default
   if ((params = $pattern("/"))) {
-    $path = "/conjugation";
+    $path = ["/conjugation"];
   }
   const titleFromPattern = ($pattern) => {
     if ((params = $pattern("/conjugation"))) {
