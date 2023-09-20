@@ -1,6 +1,7 @@
 <script>
   import ConjugationApp from "./lib/conjugation/App.svelte";
   import OralApp from "./lib/oral/App.svelte";
+  import PrepositionsApp from "./lib/prepositions/App.svelte";
   import deepEqual from "deep-equal";
   import { path, query, fragment, pattern } from "svelte-pathfinder";
   let params;
@@ -13,6 +14,8 @@
       return "La Conjugaison Française";
     } else if ((params = $pattern("/pronunciation"))) {
       return "La prononciation Française";
+    } else if ((params = $pattern("/prepositions"))) {
+      return "Les prépositions Françaises";
     }
     return null;
   };
@@ -25,6 +28,7 @@
   const navs = [
     { text: "Conjugaison", path: ["conjugation"] },
     { text: "Prononciation", path: ["pronunciation"] },
+    { text: "Prépositions", path: ["prepositions"] },
   ];
 </script>
 
@@ -32,6 +36,8 @@
   <ConjugationApp />
 {:else if (params = $pattern("/pronunciation"))}
   <OralApp />
+{:else if (params = $pattern("/prepositions"))}
+  <PrepositionsApp />
 {:else}
   <p>Not found</p>
 {/if}
