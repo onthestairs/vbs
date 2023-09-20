@@ -1,0 +1,14 @@
+[
+	{
+		"french": ["Je pense", null, "toi"],
+		"english": "I think about you",
+		"answer": "á",
+		"options": ["á", "de"]
+	},
+	{
+		"french": ["Il commence", null, "faire nuit"],
+		"english": "It's starting to get dark",
+		"answer": "á",
+		"options": ["á", "de"]
+	}
+]
