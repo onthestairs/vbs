@@ -10,5 +10,23 @@
 		"english": "It's starting to get dark",
 		"answer": "á",
 		"options": ["á", "de"]
+	},
+	{
+		"french": ["J'ai décidé", null, "chanter"],
+		"english": "I decided to sing",
+		"answer": "de",
+		"options": ["á", "de"]
+	},
+	{
+		"french": ["Je l'ai décidé", null, "changer sa voiture"],
+		"english": "I persuaded her to change her car",
+		"answer": "á",
+		"options": ["á", "de"]
+	},
+	{
+		"french": ["Je me décide", null, "demanager"],
+		"english": "I have decided to move",
+		"answer": "á",
+		"options": ["á", "de"]
 	}
 ]
