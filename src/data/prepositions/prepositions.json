@@ -29,4 +29,10 @@
 		"answer": "á",
 		"options": ["á", "de"]
 	}
+	{
+		"french": ["Ce logiciel permet", null, "réaliser des rapports"],
+		"english": "This software allows you to create reports",
+		"answer": "á",
+		"options": ["á", "de"]
+	},
 ]
