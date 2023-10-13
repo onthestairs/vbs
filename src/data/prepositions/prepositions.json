@@ -28,11 +28,17 @@
 		"english": "I have decided to move",
 		"answer": "á",
 		"options": ["á", "de"]
-	}
+	},
 	{
 		"french": ["Ce logiciel permet", null, "réaliser des rapports"],
 		"english": "This software allows you to create reports",
 		"answer": "á",
 		"options": ["á", "de"]
 	},
+	{
+		"french": ["Je n’arrive pas", null, "accéder au site"],
+		"english": "I can't access the site",
+		"answer": "á",
+		"options": ["á", "de"]
+	}
 ]
