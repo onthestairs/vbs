@@ -40,5 +40,11 @@
 		"english": "I can't access the site",
 		"answer": "á",
 		"options": ["á", "de"]
+	},
+	{
+		"french": ["Je te conseille", null, "prendre des vacances"],
+		"english": "I advise you to take a holiday",
+		"answer": "de",
+		"options": ["á", "de"]
 	}
 ]
