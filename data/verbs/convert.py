@@ -86,6 +86,28 @@ with open("./french-verb-conjugation.csv") as f:
                     "third_person_plural": row["indicative|future|third person plural"],
                 },
             },
+            "conditional": {
+                "present": {
+                    "first_person_singular": row[
+                        "indicative|conditional|first person singular"
+                    ],
+                    "second_person_singular": row[
+                        "indicative|conditional|second person singular"
+                    ],
+                    "third_person_singular": row[
+                        "indicative|conditional|third person singular"
+                    ],
+                    "first_person_plural": row[
+                        "indicative|conditional|first person plural"
+                    ],
+                    "second_person_plural": row[
+                        "indicative|conditional|second person plural"
+                    ],
+                    "third_person_plural": row[
+                        "indicative|conditional|third person plural"
+                    ],
+                },
+            },
             "subjunctive": {
                 "present": {
                     "first_person_singular": row[
