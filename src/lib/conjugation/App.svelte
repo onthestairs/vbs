@@ -71,6 +71,7 @@
   let indicativePresent = "indicative-present";
   let indicativeImperfect = "indicative-imperfect";
   let indicativeFuture = "indicative-future";
+  let conditionalPresent = "conditional-present";
   let subjunctivePresent = "subjunctive-present";
   let subjunctiveImperfect = "subjunctive-imperfect";
   let verbForms =
@@ -186,7 +187,7 @@
         </div>
         <div class="rounded-md bg-teal-100 p-2">
           <h3 class="font-bold">Mode/Tense</h3>
-          <div class="grid grid-cols-2 gap-2 ">
+          <div class="grid grid-cols-3 gap-3 ">
             <div>
               <label>
                 <input
@@ -221,6 +222,19 @@
                     verbForms[0] == indicativeFuture}
                 />
                 Indicatif/Futur
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  bind:group={verbFormInputs}
+                  name="tenses"
+                  value={conditionalPresent}
+                  disabled={verbForms.length == 1 &&
+                    verbForms[0] == conditionalPresent}
+                />
+                Conditionnel/Présent
               </label>
             </div>
             <div>
