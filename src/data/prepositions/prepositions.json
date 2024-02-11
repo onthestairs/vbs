@@ -46,5 +46,11 @@
 		"english": "I advise you to take a holiday",
 		"answer": "de",
 		"options": ["á", "de"]
+	},
+	{
+		"french": ["On est prêts", null, "rencontre Quasimodo et Esmérelda"],
+		"english": "We are ready to meet Quasimodo and Esmérelda",
+		"answer": "á",
+		"options": ["á", "de"]
 	}
 ]
